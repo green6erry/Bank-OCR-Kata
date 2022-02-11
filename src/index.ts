@@ -1,3 +1,4 @@
+import AccountNumber from "./AccountNumber";
 import getFileSections from "./getFileSections";
 import { readFileAcountList } from "./readFileAcountList";
 
@@ -12,10 +13,10 @@ const text = readFileAcountList();
 const sections = getFileSections(text);
 
 
-console.log(sections);
+// Parse the numbers in an Account class
+const accountList = sections.map(section => new AccountNumber(section));
 
-
-// Parse the numbers
+console.log(accountList);
 
 
 // Return the file

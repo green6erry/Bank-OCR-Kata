@@ -2,21 +2,20 @@ import getFileSections from '../src/getFileSections';
 
 
 const partialNumberLines = [
-  ' _  _  _  _  _  _  _  _  _ ',
-  ' _| _| _| _| _| _| _| _| _|',
-  '|_ |_ |_ |_ |_ |_ |_ |_ |_ ',
-  '    ',
-  '_  _  _  _  _  _  _  _  _ ',
-  '_ | _ | _ | _ | _ | _ | _ | _ | _ | ',
 
-];
+  ' _  _  _  _  _  _  _  _  _ ',
+  '| || || || || || || || || |',
+  '|_||_||_||_||_||_||_||_||_|',
+  '                           ',
+  '  |  |  |  |  |  |  |  |  |',
+]
 
 const partialNumberLinesResult = [
   [
     ' _  _  _  _  _  _  _  _  _ ',
-    ' _| _| _| _| _| _| _| _| _|',
-    '|_ |_ |_ |_ |_ |_ |_ |_ |_ '
-  ]
+    '| || || || || || || || || |',
+    '|_||_||_||_||_||_||_||_||_|'
+  ],
 ];
 // 
 describe('User Story 1', () => {
@@ -24,7 +23,11 @@ describe('User Story 1', () => {
 
 
   test('getFileSections: account numbers are being parsed', () => {
-    expect(getFileSections(partialNumberLines)).toEqual(partialNumberLinesResult);
+    const result = getFileSections(partialNumberLines);
+    console.log('result \n', result);
+    expect(result).toEqual(expect.arrayContaining(partialNumberLinesResult));
+    // expect(result).expect()
+    // expect(result[1]).not.toBeDefined();
   })
 
 
