@@ -4,11 +4,13 @@ export default class AccountNumber {
     lines: string[];
     rawDigits: string[];
     accountNumberDigits: number[];
+    accountNumber: string;
 
     constructor(lines: string[]) {
         this.lines = lines;
         this.rawDigits = this.getRawDigits();
         this.accountNumberDigits = this.getParsedDigits();
+        this.accountNumber = this.getAccountNumber();
     }
 
     // get rawDigits
@@ -58,9 +60,11 @@ export default class AccountNumber {
             case NINE: return 9;
             default: return -1; // easier to change this to a question mark later
         }
-
-
     }
 
-    // setAccountNumber (or soemthing)
+    // getAccountNumber
+
+    getAccountNumber(): string {
+        return this.accountNumberDigits.join('');
+    }
 }

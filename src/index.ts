@@ -13,11 +13,13 @@ export function main() {
   const sections = getFileSections(text);
 
 
-  // Parse the numbers in an Account class
-  const accountList = sections.map(section => new AccountNumber(section));
+  // Parse the numbers in an Account class, just collecting the account number
+  const accountList = sections.map(section => new AccountNumber(section).getAccountNumber());
 
+  // Put it all together into a string
+  const accountListOutput = accountList.join('\n');
 
-  return accountList;
+  return accountListOutput;
 
 
 }
