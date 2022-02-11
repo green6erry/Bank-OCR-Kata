@@ -1,3 +1,4 @@
+import getFileSections from "./getFileSections";
 import { readFileAcountList } from "./readFileAcountList";
 
 
@@ -5,9 +6,13 @@ import { readFileAcountList } from "./readFileAcountList";
 
 // Read in the file
 const text = readFileAcountList();
-console.log(text);
+// console.log(text);
 
 // Section the accounts
+const sections = getFileSections(text);
+
+
+console.log(sections);
 
 
 // Parse the numbers
