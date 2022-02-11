@@ -65,6 +65,10 @@ export default class AccountNumber {
     // getAccountNumber
 
     getAccountNumber(): string {
-        return this.accountNumberDigits.join('');
+        const output = this.accountNumberDigits.map(account => {
+            // add checksum
+            return account;
+        })
+        return output.join('');
     }
 }
