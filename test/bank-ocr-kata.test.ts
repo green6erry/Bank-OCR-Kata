@@ -18,6 +18,16 @@ const partialNumberLinesResult = [
     '|_||_||_||_||_||_||_||_||_|'
   ],
 ];
+
+
+const regularAccountLines = [
+  ' _  _  _  _  _  _  _  _  _ ',
+  '|_||_||_||_||_||_||_||_||_|',
+  '|_||_||_||_||_||_||_||_||_|',
+  '                           '
+];
+
+
 // 
 describe('User Story 1', () => {
   // TODO: Add test about file being found (use all the FS stuff);
@@ -30,11 +40,15 @@ describe('User Story 1', () => {
     // expect(result[1]).not.toBeDefined();
   });
 
-  test('number is being parsed', () => {
+  test('parseNumber: number is being parsed', () => {
     const account = new AccountNumber([' _ ', '| |', '|_|']);
     expect(account.parseDigit(' _ | ||_|')).toBe(0);
   })
 
+  test('getParsedDigits: see if array is working', () => {
+    const account = new AccountNumber(regularAccountLines);
+    expect(account.getParsedDigits()).toEqual(expect.arrayContaining([8, 8, 8, 8, 8, 8, 8, 8, 8]));
+  })
 
 });
 

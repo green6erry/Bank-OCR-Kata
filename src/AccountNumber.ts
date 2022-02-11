@@ -3,10 +3,12 @@ import { Digits } from "./Digits";
 export default class AccountNumber {
     lines: string[];
     rawDigits: string[];
+    accountNumberDigits: number[];
 
     constructor(lines: string[]) {
         this.lines = lines;
         this.rawDigits = this.getRawDigits();
+        this.accountNumberDigits = this.getParsedDigits();
     }
 
     // get rawDigits
@@ -20,11 +22,16 @@ export default class AccountNumber {
             unparsedDigits[i] = top[i] + middle[i] + bottom[i];
         }
 
-        // console.log('unparsedDigits', unparsedDigits);
-        // console.log('does work? %s is output from', this.parseDigit(unparsedDigits[0]), unparsedDigits[0]);
         return unparsedDigits;
 
     };
+
+    // putting the digits into an array for now so they'll be easier to test
+    getParsedDigits(): number[] {
+        const rawDigits = this.getRawDigits();
+        const digits = rawDigits.map(rawDigit => this.parseDigit(rawDigit))
+        return digits;
+    }
 
     // parseRawDigits
     parseDigit(str: string): number {
