@@ -48,7 +48,7 @@ describe('User Story 1', () => {
   test('getParsedDigits: see if array is working', () => {
     const account = new AccountNumber(regularAccountLines);
     expect(account.getParsedDigits()).toEqual(expect.arrayContaining([8, 8, 8, 8, 8, 8, 8, 8, 8]));
-  })
+  });
 
   test('getAccountNumber: see if correct string', () => {
     const account = new AccountNumber(regularAccountLines);

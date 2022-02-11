@@ -65,10 +65,19 @@ export default class AccountNumber {
     // getAccountNumber
 
     getAccountNumber(): string {
-        const output = this.accountNumberDigits.map(account => {
-            // add checksum
-            return account;
-        })
-        return output.join('');
+        // add checksum
+        const hasValidCheckSum = this.isCheckSumValid(this.accountNumberDigits)
+
+        return `${this.accountNumberDigits.join('')}${hasValidCheckSum ? ' ERR' : ''}`;
     }
+
+    isCheckSumValid = (digits: number[]) => {
+        let sum = digits.reduceRight((acc, val, index) => {
+            return acc + (val * (index + 1));
+        }, 0);
+        return !!(sum % 11 === 0);
+
+    }
+
+
 }
