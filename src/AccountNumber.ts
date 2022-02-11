@@ -4,13 +4,13 @@ export default class AccountNumber {
     lines: string[];
     rawDigits: string[];
     accountNumberDigits: number[];
-    accountNumber: string;
+    accountNumberOutput: string;
 
     constructor(lines: string[]) {
         this.lines = lines;
         this.rawDigits = this.getRawDigits();
         this.accountNumberDigits = this.getParsedDigits();
-        this.accountNumber = this.getAccountNumber();
+        this.accountNumberOutput = this.getAccountNumberOutput();
     }
 
     // get rawDigits
@@ -63,21 +63,31 @@ export default class AccountNumber {
     }
 
     // getAccountNumber
-
-    getAccountNumber(): string {
+    getAccountNumberOutput(): string {
         // add checksum
-        const hasValidCheckSum = this.isCheckSumValid(this.accountNumberDigits)
+        const hasInvalidCheckSum = !this.isCheckSumValid(this.accountNumberDigits)
+        const hasNonLegalDigit = this.accountNumberDigits.includes(-1);
 
-        return `${this.accountNumberDigits.join('')}${hasValidCheckSum ? ' ERR' : ''}`;
+        let output = '';
+        if (hasNonLegalDigit) output += `${this.parseNonLegal(this.accountNumberDigits)} ILL`;
+        else if (hasInvalidCheckSum) output += `${this.accountNumberDigits.join('')} ERR`
+        else output += this.accountNumberDigits.join('');
+
+        return output;
+    }
+
+    parseNonLegal = (digits: number[]): string => {
+        let parsedDigitString: string[] = digits.map(digit => digit !== -1 ? `${digit}` : '?')
+        return parsedDigitString.join('');
     }
 
     isCheckSumValid = (digits: number[]) => {
-        let sum = digits.reduceRight((acc, val, index) => {
-            return acc + (val * (index + 1));
+        let position = 1;
+        let sum = digits.reduceRight((acc, val) => {
+            return acc + (val * position++);
         }, 0);
+
         return !!(sum % 11 === 0);
-
     }
-
 
 }

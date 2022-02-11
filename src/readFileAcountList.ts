@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import * as path from 'path';
 
 
-export function readFileAcountList() {
+export async function readFileAcountList() {
 
   const ROOT = process.env.PWD!;
 

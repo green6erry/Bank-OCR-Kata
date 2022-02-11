@@ -50,9 +50,31 @@ describe('User Story 1', () => {
     expect(account.getParsedDigits()).toEqual(expect.arrayContaining([8, 8, 8, 8, 8, 8, 8, 8, 8]));
   });
 
-  test('getAccountNumber: see if correct string', () => {
+  test('getAccountNumberOutput: see if correct string', () => {
     const account = new AccountNumber(regularAccountLines);
-    expect(account.getAccountNumber()).toEqual('888888888');
+    expect(account.getAccountNumberOutput()).toEqual('888888888 ERR');
+  })
+
+});
+
+describe('User Story 2', () => {
+  // TODO: Add test about file being found (use all the FS stuff);
+
+
+  test('isCheckSumValid: ', () => {
+    const account = new AccountNumber(regularAccountLines);
+
+    expect(account.isCheckSumValid([0, 3, 0, 0, 4, 0, 0, 0])).not.toBeTruthy;
+  })
+
+});
+describe('User Story 3', () => {
+  // TODO: Add test about file being found (use all the FS stuff);
+
+
+  test('parseNonLegal: ', () => {
+    const account = new AccountNumber(regularAccountLines);
+    expect(account.parseNonLegal([1, 8, 8, 8, -1, 0, 8, 2, 8])).toEqual('1888?0828');
   })
 
 });
