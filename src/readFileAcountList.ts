@@ -19,8 +19,8 @@ export async function readFileAcountList() {
   const inputFile = path.resolve(ROOT, inputFilePath);
 
   // Read contents of file into memory.
-  const fileContents = readFileSync(inputFile, { encoding: "utf8" });
+  const fileContentLines = readFileSync(inputFile, { encoding: "utf8" }).split('\n');
 
   // TODO: add writing to output file. But for now, we console.log!
-  console.log(fileContents)
+  return fileContentLines;
 }
