@@ -4,8 +4,6 @@ export default class AccountNumber {
     lines: string[];
     rawDigits: string[];
 
-
-
     constructor(lines: string[]) {
         this.lines = lines;
         this.rawDigits = this.getRawDigits();
@@ -23,8 +21,8 @@ export default class AccountNumber {
         }
 
         // console.log('unparsedDigits', unparsedDigits);
-        console.log('does work? %s is output from', this.parseDigit(unparsedDigits[0]), unparsedDigits[0]);
-        return unparsedDigits
+        // console.log('does work? %s is output from', this.parseDigit(unparsedDigits[0]), unparsedDigits[0]);
+        return unparsedDigits;
 
     };
 
