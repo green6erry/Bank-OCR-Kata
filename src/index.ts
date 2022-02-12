@@ -23,11 +23,6 @@ export function main() {
 
   // Section the potential accounts
 
-
-
-
-
-
 }
 main();
 

@@ -61,9 +61,8 @@ describe('User Story 2', () => {
   // TODO: Add test about file being found (use all the FS stuff);
 
 
-  test('isCheckSumValid: ', () => {
+  test('isCheckSumValid: invalid return false', () => {
     const account = new AccountNumber(regularAccountLines);
-
     expect(account.isCheckSumValid([0, 3, 0, 0, 4, 0, 0, 0])).not.toBeTruthy;
   })
 
