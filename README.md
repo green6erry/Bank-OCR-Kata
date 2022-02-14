@@ -1,77 +1,113 @@
-# About the work completed 
 
-Hello! This repo is originally spun up by this handy tsdx tool, with the intention of saving time in my 3 hours to work on the Bank-OCR-Kata challenge (see the description towards the bottom).
 
-# About TSDX
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+# Bank OCR Kata Program
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+## Introduction
+This program is a tool that reads numbers that are shaped with pipes and underscores that are formatted in a specific way and parses the actual number being represented. 
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+#### Example
+```js
+    _  _     _  _  _  _  _ 
+  | _| _||_||_ |_   ||_||_|
+  ||_  _|  | _||_|  ||_| _|
 
-## Commands
+```
+This would return `123456789`.
 
-TSDX scaffolds your new library inside `/src`.
+## How to Use It
+Once you have followed the installation steps below, you can pass in a file path for a file with the "piped" account numbers and the correct numbers will be read out. You can see this specific format of the command [here](#run-file-1)
 
-To run TSDX, use:
+## Formatting the Account Number Entries
+For a file to be read properly, each entry needs to meet the following criteria:
+-  Each account number entry is exactly 4 lines long: 
+    - The first 3 lines of each entry contain an account number written using pipes and underscores
+    - The fourth line is blank. 
+- Each line is exactly 27 characters
+- Each account number entry should have 9 digits, all of which should be in the range 0-9. 
+-  Each digit in the entry must pass the validity check described in [User Story 2](#user-story-2)
+
+> There is currently no limit on the number of lines per file, but a normal file contains around 500 entries.
+
+<br> 
+
+### Error Handling
+
+#### <b>Invalid Digits</b>
+If a the digits in the account number do not pass the validity check described in [User Story 2](#user-story-2),
+then the account number is still outputted, but with an `ERR` flag to indicate this. <br><br>
+<i><b>Example </b></i><br>
+If the digits were `135683457`, the validity equation we are evaluating would be 
+
+```js
+((1 * 9) + (3 * 8) + (5 * 7) + (6 * 6) + (8 * 5) + (3 * 4) + (4 * 3) + (5 * 2) + (7 * 1)) % 11 === 0 //what we're checking
+
+(1 * 9) + (3 * 8) + (5 * 7) + (6 * 6) + (8 * 5) + (3 * 4) + (4 * 3) + (5 * 2) + (7 * 1) // returns 185
+
+185 % 11 // returns 9
+9 === 0 // returns false
+// Thus, 135683457 would be an invalid account number.
+
+```
+
+This would output <pre>135683457 ERR </pre>
+
+
+#### <b>Unidentified Digit</b>
+If a digit in an account number cannot be identified (described in [User Story 3](#user-story-3)), it is assigned a `?` in the output line, followed by the flag, `ILL` <br><br>
+<i><b>Example </b></i>
+```js
+    _  _     _  _  _  _  _ 
+  | _| _||_||_ |    ||_||_|
+  ||_  _|  | _||_|  ||_| _|
+
+```
+This would output <pre>12345?789 ILL </pre>
+
+## Next Steps
+The file is currently only for development. In the next phase, it will write the account numbers out to an output file. For now, it will only print the account numbers in the console
+<br>
+<hr>
+
+## Installation
+To install the packages, open your terminal and to the folder and run
+```bash
+npm install # or yarn install
+```
+## Development
+Once you've installed the dependencies, you can use the tool. If building on the tool in development, run 
+```bash
+npm run start # or yarn start
+```
+to have live feedback on any errors when developing in `/src` directory. This command builds to `/dist` and runs the project in watch mode. Any edits you save inside `src` causes a rebuild to `/dist`.
+<details>
+  <summary> 📸   See an example here </summary>
+  
+  <img src="https://user-images.githubusercontent.com/4060187/52168303-574d3a00-26f6-11e9-9f3b-71dbec9ebfcb.gif" width="600">
+</details>
+<br>
+
+
+
+## Running the tool <a name="run-file-1"></a>
+
+You can use and test out what is being built in the `/dist` folder with `npm run read` or `yarn read`. The file that is being read defaults to `/test/fixtures/test_data_1.txt`, but you can pass in your own file to be read, like so 
 
 ```bash
-npm start # or yarn start
+npm run read ./test/fixtures/test_data_2.txt # or yarn read ./test/fixtures/test_data_2.txt
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+This will print out a list of account numbers read from the file in the console
 
-To do a one-off build, use `npm run build` or `yarn build`.
+## Testing
+To run tests, use `npm test` or `yarn test`. If you do this while `npm run start` or `yarn start` is running, the tests will also run continuously for real-time feedback
 
-To run tests, use `npm test` or `yarn test`.
+## Production
+Once you have completed any development, you can do a one-off build, using `npm run build` or `yarn build`. 
 
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
+```bash
+npm run build # or yarn build
 ```
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+Which will build out a version of the JS the doesn't anything flagged as for development, such as development-only optimizations:
 
 ```js
 // ./types/index.d.ts
@@ -81,42 +117,59 @@ declare var __DEV__: boolean;
 if (__DEV__) {
   console.log('foo');
 }
+// (The above "inside your code" block would be removed in a production build)
+
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+> To learn more, please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). 
 
-## Module Formats
+<br>
 
-CJS, ESModules, and UMD module formats are supported.
+## Development Resources
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+- To learn more about TSDX, visit https://tsdx.io/.
 
-## Named Exports
+- If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+<br>
+<br>
+<br>
+<hr>
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
-
-## Including Styles
-
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
-
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
+# About the Development Process
 
 
-# About the REPO Content 
+This tool was made in about 3 hours to work on the Bank-OCR-Kata challenge described in the [User Stories](#user-stories) described below.
 
-# Original Description (from the Coding Dojo wiki)
+## Conclusion / Retrospective Thoughts
+<br> 
+
+### "Outside -> In" vs. "Inside -> Out"
+<br>
+
+#### <b>"Outside -> In" approach</b>
+I think that the approach I took wasn't the most effective. What I did was an "outside -> in" approach, where I started off making the functionality to read the document, and the incrementally processed the data with increasing specificity. Why I don't think this was the best was it meant that I had to revise previous tests where the output changed and wasn't able to demonstrate the core purpose of the program (which is to parse digits) until well into development. The better approach would have been the "inside -> out" approach
+<br><br>
+
+#### <b>"Inside -> Out" Approach</b>
+If I had taken the "inside -> out" approach, I would have been able to to have a useful tool to deliver right off the bat. The functionality of reading a digit (which in this case represent the most granular process of the program) wouldn't have changed over the course of development. If I had started with this and worked my way outwards, I would have had feedback throughout development as to whether the core functionality was working. <br><br>
+It would also have saved time (and the client's investment) by not needing to revise tests so much. I also felt like this approach would have dictated some of the executive choices like whether file should be read synchronously or asynchronously, which I ended up changing my mind about towards the end of my 3 hours. Had I taken this approach, I think it would have been obvious that by the time I "worked up to" reading the file, I would have only needed to decide once. <br><br>Lastly, this also would have freed up multiple paths so that if I was working with another person and we were just getting started, they could work on other small parts in parallel, as opposed to progress hinging on me completely the bulkiest functionality first). This again would make sure the client's investment is being stretched the furthest, making sure everyone is engaged and there isn't as much down-time.
+
+### Overall
+I'm happy with how it turned out. It is functional, the layout seems readable, and I feel like I have the beginnings of some good tests.
+
+<hr>
+
+## Original Description (from the Coding Dojo wiki)
 
 (see http://codingdojo.org/kata/BankOCR/)
 
 This Kata was presented at XP2006 by EmmanuelGaillot and ChristopheThibaut.
 
-## Problem Description
+## User Stories <a name="user-stories"></a>
 
-### User Story 1
+<details> <a name="user-story-1"></a>
+
+<summary>  User Story 1 </summary>
 
 You work for a bank, which has recently purchased an ingenious machine to assist in reading letters and faxes sent in by branch offices. The machine scans the paper documents, and produces a file with a number of entries which each look like this:
 
@@ -129,8 +182,11 @@ You work for a bank, which has recently purchased an ingenious machine to assist
 Each entry is 4 lines long, and each line has 27 characters. The first 3 lines of each entry contain an account number written using pipes and underscores, and the fourth line is blank. Each account number should have 9 digits, all of which should be in the range 0-9. A normal file contains around 500 entries.
 
 Your first task is to write a program that can take this file and parse it into actual account numbers.
+</details>
 
-### User Story 2
+
+<details> <a name="user-story-2"></a>
+<summary> User Story 2</summary>
 
 Having done that, you quickly realize that the ingenious machine is not in fact infallible. Sometimes it goes wrong in its scanning. The next step therefore is to validate that the numbers you read are in fact valid account numbers. A valid account number has a valid checksum. This can be calculated as follows:
 
@@ -146,7 +202,10 @@ checksum calculation:
 So now you should also write some code that calculates the checksum
 for a given number, and identifies if it is a valid account number.
 
-### User Story 3
+</details>
+
+<details> <a name="user-story-3"></a>
+<summary> User Story 3</summary>
 
 Your boss is keen to see your results. He asks you to write out a file
 of your findings, one for each input file, in this format:
@@ -161,8 +220,13 @@ ie. the file has one account number per row. If some characters are
 illegible, they are replaced by a ?. In the case of a wrong checksum,
 or illegible number, this is noted in a second column indicating
 status.
+</details>
+<br>
 
-### User Story 4
+### Future User Stories
+
+<details>
+<summary>User Story 4</summary>
 
 It turns out that often when a number comes back as ERR or ILL it is
 because the scanner has failed to pick up on one pipe or underscore
@@ -182,6 +246,16 @@ underscore. If there is only one possible number with a valid
 checksum, then use that. If there are several options, the status
 should be AMB. If you still can't work out what it should be, the
 status should be reported ILL.
+
+</details>
+<br>
+
+# Miscellaneous
+
+
+<details>
+
+<summary>More information provided for development</summary>
 
 ## Clues
 
@@ -459,3 +533,4 @@ pipeline(readStream, myTransformStream, writeStream, (err) => {
   }
 });
 ```
+</details>

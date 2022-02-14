@@ -19,7 +19,6 @@ const partialNumberLinesResult = [
   ],
 ];
 
-
 const regularAccountLines = [
   ' _  _  _  _  _  _  _  _  _ ',
   '|_||_||_||_||_||_||_||_||_|',
@@ -28,16 +27,16 @@ const regularAccountLines = [
 ];
 
 
-// 
 describe('User Story 1', () => {
-  // TODO: Add test about file being found (use all the FS stuff);
+
+  // TODO: Future test - use FS library to check that the file is being found and ready correctly
+  // TODO: Future test - check that an invalid file is not being found and errors gracefully
 
 
   test('getFileSections: account numbers are being seperated into 3 lines', () => {
     const result = getFileSections(partialNumberLines);
     expect(result).toEqual(expect.arrayContaining(partialNumberLinesResult));
-    // expect(result).expect()
-    // expect(result[1]).not.toBeDefined();
+    // expect(result[1]).not.toBeDefined(); // test is not robust enough, but something to build on later
   });
 
   test('parseNumber: number is being parsed', () => {
@@ -58,7 +57,9 @@ describe('User Story 1', () => {
 });
 
 describe('User Story 2', () => {
-  // TODO: Add test about file being found (use all the FS stuff);
+  // TODO: Future test - check what happens with passing in letters
+  // TODO: Future test - check with huge numbers
+
 
 
   test('isCheckSumValid: invalid return false', () => {
@@ -68,7 +69,13 @@ describe('User Story 2', () => {
 
 });
 describe('User Story 3', () => {
-  // TODO: Add test about file being found (use all the FS stuff);
+  // TODO: Future test - check that the output string includes ERR or ILL
+  // TODO: Future test - pass in a string to throw an error
+  // TODO: Future test - pass in an empty array of nulls - new Array(8)
+  // TODO: Future test - pass in an 22 number array
+
+
+
 
 
   test('parseNonLegal: ', () => {

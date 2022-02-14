@@ -7,7 +7,7 @@ export async function readFileAcountList() {
 
   const ROOT = process.env.PWD!;
 
-  const inputFilePath = process.argv[2] ?? './test/data/test_data_1.txt';
+  const inputFilePath = process.argv[2] ?? './test/fixtures/test_data_1.txt';
 
   // This would be more relevant if the process.arg were required.
   if (!inputFilePath) {
@@ -21,6 +21,6 @@ export async function readFileAcountList() {
   // Read contents of file into memory.
   const fileContentLines = readFileSync(inputFile, { encoding: "utf8" }).split('\n');
 
-  // TODO: add writing to output file. But for now, we console.log!
+  // TODO: add writing to output file. For now, the output will just be a logged.
   return fileContentLines;
 }
