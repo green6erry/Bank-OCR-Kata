@@ -141,14 +141,11 @@ if (__DEV__) {
 This tool was made in about 3 hours to work on the Bank-OCR-Kata challenge described in the [User Stories](#user-stories) described below.
 
 ## Conclusion / Retrospective Thoughts
-<br> 
 
 ### "Outside -> In" vs. "Inside -> Out"
-<br>
 
 #### <b>"Outside -> In" approach</b>
 I think that the approach I took wasn't the most effective. What I did was an "outside -> in" approach, where I started off making the functionality to read the document, and the incrementally processed the data with increasing specificity. Why I don't think this was the best was it meant that I had to revise previous tests where the output changed and wasn't able to demonstrate the core purpose of the program (which is to parse digits) until well into development. The better approach would have been the "inside -> out" approach
-<br><br>
 
 #### <b>"Inside -> Out" Approach</b>
 If I had taken the "inside -> out" approach, I would have been able to to have a useful tool to deliver right off the bat. The functionality of reading a digit (which in this case represent the most granular process of the program) wouldn't have changed over the course of development. If I had started with this and worked my way outwards, I would have had feedback throughout development as to whether the core functionality was working. <br><br>
